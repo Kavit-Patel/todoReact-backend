@@ -9,7 +9,7 @@ taskRouter.get("/all", auth, async (req, res, next) => {
   const user = req.user;
   try {
     const tasks = await taskModel.find({ user: user._id });
-    res.status(200).json(tasks);
+    res.status(200).json({ user, tasks });
   } catch (error) {
     next(error.message, 404);
   }
