@@ -51,7 +51,12 @@ userRouter.get("/logout", auth, async (req, res, next) => {
     console.log("first");
     res
       .status(200)
-      .cookie("todo_token", "", { expires: new Date(Date.now()) })
+      .cookie("todo_token", "", {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+        sameSite: process.env.NODE_MODE === "Development" ? "lax" : "none",
+        secure: process.env.NODE_MODE === "Development" ? false : true,
+      })
       .json({ message: "logout successful" });
   } catch (error) {
     next(error.message, 404);
