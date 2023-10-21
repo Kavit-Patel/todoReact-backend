@@ -67,7 +67,7 @@ taskRouter.delete("/delete/:id", auth, async (req, res, next) => {
         403
       );
     const deletedTask = await taskModel.deleteOne({ _id: task._id });
-    res.status(200).json(deletedTask, task);
+    res.status(200).json(deletedTask);
   } catch (error) {
     next(error.message, 404);
   }
